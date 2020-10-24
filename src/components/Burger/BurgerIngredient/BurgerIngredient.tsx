@@ -1,5 +1,5 @@
 import React , {Fragment} from 'react';
-import {Ingtedints} from '../Types/Types';
+import {Ingredient} from '../Types/Types';
 
 import './BurgerIngredient.css';
 
@@ -15,11 +15,10 @@ const classes = {
     Bacon: 'Bacon',
 }
 
-interface burgerIngredient {
+interface burgerIngredientProps {
     type : String;
 }
-export class BurgerIngredient extends React.Component<burgerIngredient>  {
-    
+export class BurgerIngredient extends React.Component<burgerIngredientProps>  {
     
     render()
     {
@@ -27,10 +26,10 @@ export class BurgerIngredient extends React.Component<burgerIngredient>  {
         let  ingredint: null | JSX.Element = (null);
         const chose = (type:String) =>{
             switch (type) {
-                case Ingtedints.BreadBottom:
+                case Ingredient.BreadBottom:
                     ingredint = (<div className={classes.BreadBottom}></div>);
                     break;
-                case Ingtedints.BreadTop:
+                case Ingredient.BreadTop:
                     ingredint = (
                         <div className={classes.BreadTop}>
                             <div className={classes.Seeds1}></div>
@@ -38,16 +37,16 @@ export class BurgerIngredient extends React.Component<burgerIngredient>  {
                         </div>
                     );
                     break;
-                case Ingtedints.Meat:
+                case Ingredient.Meat:
                     ingredint = (<div className={classes.Meat}></div>);
                     break;
-                case Ingtedints.Cheese:
+                case Ingredient.Cheese:
                     ingredint = (<div className={classes.Cheese}></div>);
                     break;
-                case Ingtedints.Bacon:
+                case Ingredient.Bacon:
                     ingredint = (<div className={classes.Bacon}></div>);
                     break;
-                case Ingtedints.Salad:
+                case Ingredient.Salad:
                     ingredint = (<div className={classes.Salad}></div>);
                     break;
                 default:

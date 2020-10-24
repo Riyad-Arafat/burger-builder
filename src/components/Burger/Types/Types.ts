@@ -1,4 +1,4 @@
-export enum Ingtedints {
+export enum Ingredient {
     BreadBottom = 'BreadBottom',
     BreadTop = 'BreadTop',
     Meat = 'Meat',

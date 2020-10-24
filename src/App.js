@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
 
-import {Burger} from './components/Burger/Burger';
+import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 function App() {
   return (
     <div className="App">
-      <Burger/>
+      <BurgerBuilder/>
     </div>
   );
 }
