@@ -1,43 +1,68 @@
+import React , {Fragment} from 'react';
+import {Ingtedints} from '../Types/Types';
 
-import React from 'react';
+import './BurgerIngredient.css';
 
-import classes from './BurgerIngredient.css';
+
+const classes = {
+    BreadBottom: 'BreadBottom',
+    BreadTop: 'BreadTop',
+    Seeds1: 'Seeds1',
+    Seeds2: 'Seeds2',
+    Meat: 'Meat',
+    Cheese: 'Cheese',
+    Salad: 'Salad',
+    Bacon: 'Bacon',
+}
 
 interface burgerIngredient {
     type : String;
-    calsses: any
 }
+export class BurgerIngredient extends React.Component<burgerIngredient>  {
+    
+    
+    render()
+    {
+        const type = this.props.type
+        let  ingredint: null | JSX.Element = (null);
+        const chose = (type:String) =>{
+            switch (type) {
+                case Ingtedints.BreadBottom:
+                    ingredint = (<div className={classes.BreadBottom}></div>);
+                    break;
+                case Ingtedints.BreadTop:
+                    ingredint = (
+                        <div className={classes.BreadTop}>
+                            <div className={classes.Seeds1}></div>
+                            <div className={classes.Seeds2}></div>
+                        </div>
+                    );
+                    break;
+                case Ingtedints.Meat:
+                    ingredint = (<div className={classes.Meat}></div>);
+                    break;
+                case Ingtedints.Cheese:
+                    ingredint = (<div className={classes.Cheese}></div>);
+                    break;
+                case Ingtedints.Bacon:
+                    ingredint = (<div className={classes.Bacon}></div>);
+                    break;
+                case Ingtedints.Salad:
+                    ingredint = (<div className={classes.Salad}></div>);
+                    break;
+                default:
+                    ingredint = (null)
+                    break;
+            }
+        }
+        chose(type);
+        return(
+    
+            <Fragment>
+                {ingredint}
+            </Fragment> 
+        )
+    
 
-export const burgerIngredient = ({type} :burgerIngredient) => {
-
-    let ingredint = null;
-    switch (type) {
-        case 'bread-bottom':
-            ingredint = (<div className={classes.BreadBottom}></div>);
-            break;
-        case 'bread-top':
-            ingredint = (
-                <div className={classes.BreadTop}>
-                    <div className={classes.Seeds1}></div>
-                    <div className={classes.Seeds2}></div>
-                </div>
-            );
-            break;
-        case 'meat':
-            ingredint = (<div className={classes.Meat}></div>);
-            break;
-        case 'cheese':
-            ingredint = (<div className={classes.Chease}></div>);
-            break;
-        case 'bacon':
-            ingredint = (<div className={classes.Bacon}></div>);
-            break;
-        case 'salad':
-            ingredint = (<div className={classes.Salad}></div>);
-            break;
-        default:
-            ingredint = null;
-            break;
     }
-
 }
