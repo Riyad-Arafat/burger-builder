@@ -6,9 +6,7 @@
     text-align: center;
     margin: auto;
     overflow: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+
 }
 
 @media (min-width: 500px) and (min-height: 400px){
@@ -23,6 +21,6 @@
 
     .Burger{
         width: 700px;
-        height: 600px;
+        height: 555px;
     }
 }

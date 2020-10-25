@@ -6,6 +6,12 @@ import {DisabledInfo, Ingredients } from '../../types/commonInterface';
 
 
 
+const INGREDIENTS_PRICE:Ingredients = {
+    Cheese : 2,
+    Meat : 3.5,
+    Salad : 2.65,
+    Bacon : 5.2,
+}
 
 class BurgerBuilder extends Component {
 
@@ -16,6 +22,7 @@ class BurgerBuilder extends Component {
             Salad :0 ,
             Bacon :0 ,
         },
+        totalPrice: 0,
 
     }
 
@@ -24,7 +31,9 @@ class BurgerBuilder extends Component {
         const updateCount = oldCount + 1;
         const updateIngredient:Ingredients = {...this.state.ingredients};
         updateIngredient[type]=updateCount;
-        this.setState({ingredients: updateIngredient});
+        const oldPrice = this.state.totalPrice;
+        const newPrice = oldPrice + INGREDIENTS_PRICE[type];
+        this.setState({ingredients: updateIngredient, totalPrice: newPrice});
     }
 
     removeIngredients = (type: string, ingredients:Ingredients = this.state.ingredients) =>{
@@ -33,6 +42,9 @@ class BurgerBuilder extends Component {
             const updateCount = oldCount - 1;
             const updateIngredient:Ingredients = {...this.state.ingredients};
             updateIngredient[type]=updateCount;
+            const oldPrice = this.state.totalPrice;
+            const newPrice = oldPrice - INGREDIENTS_PRICE[type];
+            this.setState({ingredients: updateIngredient, totalPrice: newPrice});
             this.setState({ingredients: updateIngredient});
         }
         
@@ -52,6 +64,7 @@ class BurgerBuilder extends Component {
                 <Burger
                     ingredients={this.state.ingredients} 
                 />
+                <div>{this.state.totalPrice.toFixed(2)}$</div>
                 <BuilderControls 
                 ingredientsAdded={this.addIngredients}
                 ingredientsRemoved={this.removeIngredients}
