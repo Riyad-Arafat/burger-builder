@@ -3,7 +3,6 @@ import {BurgerIngredient} from './BurgerIngredient/BurgerIngredient';
 import {IngredienType} from '../../types/commomEnum';
 import './Burger.css';
 
-
 export const Burger = (props: any) => {
     const {ingredients} = props;
     let transFormedIngtedints:JSX.Element[] | JSX.Element = Object.keys(ingredients)

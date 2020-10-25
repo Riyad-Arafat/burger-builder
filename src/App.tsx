@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+import BurgerBuilder from './containers/Burger/BurgerBuilder.container';
 function App() {
   return (
     <div className="App">

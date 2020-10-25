@@ -1,9 +1,10 @@
 import React, {Component, Fragment} from 'react';
-import { BuilderControls } from '../../components/Burger/BuilderControls/BuilderControls';
-import { Burger } from '../../components/Burger/Burger'
+import { BuilderControls } from './BuilderControls/BuilderControls';
+import { Burger } from './Burger'
 import { IngredienType } from '../../types/commomEnum';
 import {DisabledInfo, Ingredients } from '../../types/commonInterface';
-
+import {Modal} from '../../components/UI/Modal/Modal';
+import {OrderSummary} from '../OrderSummary/OrderSummary'
 
 
 const INGREDIENTS_PRICE:Ingredients = {
@@ -22,8 +23,20 @@ class BurgerBuilder extends Component {
             Salad :0 ,
             Bacon :0 ,
         },
+        isOrderOpen: false,
         totalPrice: 0,
+        purchasable: false,
 
+    }
+
+    updatePurchase = (ingredients:Ingredients) => {
+        const sum = Object.keys(ingredients)
+        .map(iKey => {
+            return ingredients[iKey];
+        }).reduce((sum, el) => {
+            return sum + el
+        },0)
+        this.setState({purchasable: sum > 0});
     }
 
     addIngredients = (type: string, ingredients:Ingredients = this.state.ingredients) =>{
@@ -34,6 +47,7 @@ class BurgerBuilder extends Component {
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice + INGREDIENTS_PRICE[type];
         this.setState({ingredients: updateIngredient, totalPrice: newPrice});
+        this.updatePurchase(updateIngredient);
     }
 
     removeIngredients = (type: string, ingredients:Ingredients = this.state.ingredients) =>{
@@ -45,7 +59,7 @@ class BurgerBuilder extends Component {
             const oldPrice = this.state.totalPrice;
             const newPrice = oldPrice - INGREDIENTS_PRICE[type];
             this.setState({ingredients: updateIngredient, totalPrice: newPrice});
-            this.setState({ingredients: updateIngredient});
+            this.updatePurchase(updateIngredient);
         }
         
     }
@@ -58,9 +72,14 @@ class BurgerBuilder extends Component {
         for(let key in ingr ){
             disabledInfo[key] = ingr[key] <= 0
         }
-        console.log(disabledInfo)
         return(
             <Fragment>
+                <Modal open={this.state.isOrderOpen}>
+                    <OrderSummary label="Order Summary" ingredients={this.state.ingredients} />
+                    <button 
+                    onClick={()=> this.setState({isOrderOpen: !this.state.isOrderOpen})}
+                    >Cancel</button>
+                </Modal>
                 <Burger
                     ingredients={this.state.ingredients} 
                 />
@@ -70,6 +89,9 @@ class BurgerBuilder extends Component {
                 ingredientsRemoved={this.removeIngredients}
                 disabled={disabledInfo}
                 ></BuilderControls>
+                <button disabled={!this.state.purchasable}
+                onClick={()=> this.setState({isOrderOpen: !this.state.isOrderOpen})}
+                >OREDR NOW!</button>
             </Fragment>
         )    
     }
