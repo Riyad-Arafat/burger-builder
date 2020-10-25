@@ -1,20 +1,23 @@
 import React from 'react';
-import { isPropertySignature } from 'typescript';
+import {DisabledInfo} from '../../../types/commonInterface';
 import {BuilderControl} from './BuilderControl/BuilderControl'
 
 const controls = [
-    {lable:"Cheese", type: "Cheese"},
-    {lable:"Meat", type:"Meat"},
-    {lable:"Salad", type:"Salad"},
-    {lable:"Bacon", type:"Bacon"},
+    {lable:"Cheese"},
+    {lable:"Meat"},
+    {lable:"Salad"},
+    {lable:"Bacon"},
 ]
+
+
 
 interface BuilderControls {
     ingredientsAdded: (type:string) => void,
     ingredientsRemoved: (type:string) => void,
+    disabled: DisabledInfo;
 }
 
-export const BuilderControls = ({ingredientsAdded, ingredientsRemoved}:BuilderControls) =>{
+export const BuilderControls = ({ingredientsAdded, ingredientsRemoved, disabled}:BuilderControls) =>{
 
     return(
         <div>
@@ -22,8 +25,9 @@ export const BuilderControls = ({ingredientsAdded, ingredientsRemoved}:BuilderCo
                 <BuilderControl
                     key={ctrl.lable} 
                     label={ctrl.lable}
-                    add={() => ingredientsAdded(ctrl.type)}
-                    remove={()=>ingredientsRemoved(ctrl.type)}
+                    add={() => ingredientsAdded(ctrl.lable)}
+                    remove={()=>ingredientsRemoved(ctrl.lable)}
+                    disabled ={disabled[ctrl.lable]}
                 ></BuilderControl>
             )}
     

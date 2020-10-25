@@ -1,5 +1,5 @@
 import React , {Fragment} from 'react';
-import {Ingredient} from '../Types/Types';
+import {IngredienType} from '../../../types/commomEnum';
 
 import './BurgerIngredient.css';
 
@@ -26,10 +26,10 @@ export class BurgerIngredient extends React.Component<burgerIngredientProps>  {
         let  ingredint: null | JSX.Element = (null);
         const chose = (type:String) =>{
             switch (type) {
-                case Ingredient.BreadBottom:
+                case IngredienType  .BreadBottom:
                     ingredint = (<div className={classes.BreadBottom}></div>);
                     break;
-                case Ingredient.BreadTop:
+                case IngredienType  .BreadTop:
                     ingredint = (
                         <div className={classes.BreadTop}>
                             <div className={classes.Seeds1}></div>
@@ -37,16 +37,16 @@ export class BurgerIngredient extends React.Component<burgerIngredientProps>  {
                         </div>
                     );
                     break;
-                case Ingredient.Meat:
+                case IngredienType  .Meat:
                     ingredint = (<div className={classes.Meat}></div>);
                     break;
-                case Ingredient.Cheese:
+                case IngredienType  .Cheese:
                     ingredint = (<div className={classes.Cheese}></div>);
                     break;
-                case Ingredient.Bacon:
+                case IngredienType  .Bacon:
                     ingredint = (<div className={classes.Bacon}></div>);
                     break;
-                case Ingredient.Salad:
+                case IngredienType  .Salad:
                     ingredint = (<div className={classes.Salad}></div>);
                     break;
                 default:
@@ -55,8 +55,7 @@ export class BurgerIngredient extends React.Component<burgerIngredientProps>  {
             }
         }
         chose(type);
-        return(
-    
+        return(    
             <Fragment>
                 {ingredint}
             </Fragment> 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {BurgerIngredient} from './BurgerIngredient/BurgerIngredient';
-import {Ingredient} from './Types/Types';
+import {IngredienType} from '../../types/commomEnum';
 import './Burger.css';
 
 
@@ -20,9 +20,9 @@ export const Burger = (props: any) => {
     }
     return(
         <div className='Burger'>
-            <BurgerIngredient type={Ingredient.BreadTop}/>
+            <BurgerIngredient type={IngredienType.BreadTop}/>
             {transFormedIngtedints}
-            <BurgerIngredient type={Ingredient.BreadBottom}/>
+            <BurgerIngredient type={IngredienType.BreadBottom}/>
         </div>
     
     )
