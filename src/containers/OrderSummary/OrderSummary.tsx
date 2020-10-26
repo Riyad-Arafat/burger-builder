@@ -1,25 +1,45 @@
-import React, {Fragment} from 'react';
+import React, {CSSProperties, Fragment} from 'react';
 import {Ingredients} from '../../types/commonInterface';
+
 interface ModalProps{
     label: string,
     ingredients: Ingredients,
     
 }
 
+const TABLE_STYLE:CSSProperties = {
+    borderCollapse: "collapse",
+    width: '100%',
+}
+const TH_TD_STYLE:CSSProperties = {
+    border: "1px solid #dddddd",
+    textAlign: "left",
+    padding: "8px",
+}
+
 export const OrderSummary = ({label, ingredients}:ModalProps) =>{
     const Ingredients = Object.keys(ingredients)
     .map(iKey => { 
-        return <li style={{width: "auto"}}>
-            <b>{iKey}</b>: <span>{ingredients[iKey]}</span>
+        return(
+            <tr style={TH_TD_STYLE} key={iKey}>
+                <td>{iKey}</td>
+                <td>{ingredients[iKey]}</td>
+            </tr>
+        )
         
-        </li>
     })
     return(
     <Fragment>
         <h3>{label}</h3>
-        <div>
-            <ul style={{width: "fit-content"}}>{Ingredients}</ul>
-        </div>
+        <table style={TABLE_STYLE}>
+            <tbody>
+                <tr style={TH_TD_STYLE}>
+                    <th>Ingredient</th>
+                    <th>Amount</th>
+                </tr>
+                {Ingredients}
+            </tbody>
+        </table>
     </Fragment>
     )   
 

@@ -1,7 +1,7 @@
 import React , {Fragment} from 'react';
 import {IngredienType} from '../../../types/commomEnum';
 
-import './BurgerIngredient.css';
+import '../../../assets/Burger/BurgerIngredient.css';
 
 
 const classes = {
@@ -26,10 +26,10 @@ export class BurgerIngredient extends React.Component<burgerIngredientProps>  {
         let  ingredint: null | JSX.Element = (null);
         const chose = (type:String) =>{
             switch (type) {
-                case IngredienType  .BreadBottom:
+                case IngredienType.BreadBottom:
                     ingredint = (<div className={classes.BreadBottom}></div>);
                     break;
-                case IngredienType  .BreadTop:
+                case IngredienType.BreadTop:
                     ingredint = (
                         <div className={classes.BreadTop}>
                             <div className={classes.Seeds1}></div>
@@ -37,16 +37,16 @@ export class BurgerIngredient extends React.Component<burgerIngredientProps>  {
                         </div>
                     );
                     break;
-                case IngredienType  .Meat:
+                case IngredienType.Meat:
                     ingredint = (<div className={classes.Meat}></div>);
                     break;
-                case IngredienType  .Cheese:
+                case IngredienType.Cheese:
                     ingredint = (<div className={classes.Cheese}></div>);
                     break;
-                case IngredienType  .Bacon:
+                case IngredienType.Bacon:
                     ingredint = (<div className={classes.Bacon}></div>);
                     break;
-                case IngredienType  .Salad:
+                case IngredienType.Salad:
                     ingredint = (<div className={classes.Salad}></div>);
                     break;
                 default:

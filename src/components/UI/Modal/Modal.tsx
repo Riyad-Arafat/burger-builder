@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import './Modal.css'
+import '../../../assets/Modal/Modal.css'
 
 interface ModalProps{
     open: boolean,

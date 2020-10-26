@@ -9,15 +9,13 @@ const controls = [
     {lable:"Bacon"},
 ]
 
-
-
-interface BuilderControls {
+interface BuilderControlsProps {
     ingredientsAdded: (type:string) => void,
     ingredientsRemoved: (type:string) => void,
     disabled: DisabledInfo;
 }
 
-export const BuilderControls = ({ingredientsAdded, ingredientsRemoved, disabled}:BuilderControls) =>{
+export const BuilderControls = ({ingredientsAdded, ingredientsRemoved, disabled}:BuilderControlsProps) =>{
 
     return(
         <div>

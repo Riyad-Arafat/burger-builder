@@ -5,6 +5,7 @@ import { IngredienType } from '../../types/commomEnum';
 import {DisabledInfo, Ingredients } from '../../types/commonInterface';
 import {Modal} from '../../components/UI/Modal/Modal';
 import {OrderSummary} from '../OrderSummary/OrderSummary'
+import '../../assets/Burger/Burger.container.css'
 
 
 const INGREDIENTS_PRICE:Ingredients = {
@@ -80,18 +81,27 @@ class BurgerBuilder extends Component {
                     onClick={()=> this.setState({isOrderOpen: !this.state.isOrderOpen})}
                     >Cancel</button>
                 </Modal>
-                <Burger
-                    ingredients={this.state.ingredients} 
-                />
-                <div>{this.state.totalPrice.toFixed(2)}$</div>
-                <BuilderControls 
-                ingredientsAdded={this.addIngredients}
-                ingredientsRemoved={this.removeIngredients}
-                disabled={disabledInfo}
-                ></BuilderControls>
-                <button disabled={!this.state.purchasable}
-                onClick={()=> this.setState({isOrderOpen: !this.state.isOrderOpen})}
-                >OREDR NOW!</button>
+                <div className="Builder-Conatiner">
+                    <Burger
+                        ingredients={this.state.ingredients} 
+                    />
+                    <div className="Contorls-Container">
+                        <div><b>{this.state.totalPrice.toFixed(2)}$</b></div>
+                        <BuilderControls 
+                        ingredientsAdded={this.addIngredients}
+                        ingredientsRemoved={this.removeIngredients}
+                        disabled={disabledInfo}
+                        ></BuilderControls>
+
+                        <button disabled={!this.state.purchasable}
+                        onClick={()=> this.setState({isOrderOpen: !this.state.isOrderOpen})}
+                        >OREDR NOW!</button>
+                    </div>
+                    
+                    
+
+                </div>
+                
             </Fragment>
         )    
     }

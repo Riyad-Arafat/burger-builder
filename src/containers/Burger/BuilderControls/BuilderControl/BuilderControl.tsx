@@ -1,14 +1,14 @@
 import React, {Fragment} from 'react';
 
 
-interface BuilderControl {
+interface BuilderControlProps {
     label: string,
     add: () => void,
     remove: () => void,
     disabled?: boolean ,
 }
 
-export const BuilderControl = ({label, add, remove, disabled}:BuilderControl) => {
+export const BuilderControl = ({label, add, remove, disabled}:BuilderControlProps) => {
 
     return (
         <Fragment>

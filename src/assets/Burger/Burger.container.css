@@ -1,0 +1,20 @@
+.Builder-Conatiner{
+    display: flex;
+    height: 100vh;
+}
+
+.Contorls-Container{
+    order:-1;
+    margin: auto;
+}
+
+@media (max-width: 670px){
+    .Builder-Conatiner{
+        display: block;
+    }
+    
+    .Contorls-Container{
+        order: 2;
+        margin-top: 50px;
+    }
+}
