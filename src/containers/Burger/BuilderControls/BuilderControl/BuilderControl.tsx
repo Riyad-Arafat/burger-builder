@@ -12,7 +12,7 @@ export const BuilderControl = ({label, add, remove, disabled}:BuilderControlProp
 
     return (
         <Fragment>
-            <div className="sadasd">{label}</div>
+            <div className="label">{label}</div>
             <button onClick={remove} disabled={disabled}>Less</button>
             <button onClick={add}>More</button>
         </Fragment>

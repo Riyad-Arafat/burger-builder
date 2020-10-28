@@ -5,8 +5,18 @@
 
 .Contorls-Container{
     order:-1;
-    margin: auto;
+    min-width: 35%;
+    background-color: #94a3c7ad;
 }
+
+.Contorls-Container .label{
+    font-size: x-large;
+    font-weight: bold;
+    margin-top: 10px;
+    font-family: serif;
+    color: #030728;
+}
+
 
 @media (max-width: 670px){
     .Builder-Conatiner{

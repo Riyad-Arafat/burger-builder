@@ -4,6 +4,7 @@ import {Ingredients} from '../../types/commonInterface';
 interface ModalProps{
     label: string,
     ingredients: Ingredients,
+    totalPrice: number
     
 }
 
@@ -17,7 +18,7 @@ const TH_TD_STYLE:CSSProperties = {
     padding: "8px",
 }
 
-export const OrderSummary = ({label, ingredients}:ModalProps) =>{
+export const OrderSummary = ({label, ingredients, totalPrice}:ModalProps) =>{
     const Ingredients = Object.keys(ingredients)
     .map(iKey => { 
         return(
@@ -40,6 +41,8 @@ export const OrderSummary = ({label, ingredients}:ModalProps) =>{
                 {Ingredients}
             </tbody>
         </table>
+        <div>Total Price: <b>{totalPrice.toFixed(2)}$</b></div>
+        <br/>
     </Fragment>
     )   
 

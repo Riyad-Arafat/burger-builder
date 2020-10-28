@@ -76,7 +76,7 @@ class BurgerBuilder extends Component {
         return(
             <Fragment>
                 <Modal open={this.state.isOrderOpen}>
-                    <OrderSummary label="Order Summary" ingredients={this.state.ingredients} />
+                    <OrderSummary label="Order Summary" ingredients={this.state.ingredients} totalPrice={this.state.totalPrice} />
                     <button 
                     onClick={()=> this.setState({isOrderOpen: !this.state.isOrderOpen})}
                     >Cancel</button>
@@ -86,6 +86,7 @@ class BurgerBuilder extends Component {
                         ingredients={this.state.ingredients} 
                     />
                     <div className="Contorls-Container">
+                        <br/>
                         <div><b>{this.state.totalPrice.toFixed(2)}$</b></div>
                         <BuilderControls 
                         ingredientsAdded={this.addIngredients}
