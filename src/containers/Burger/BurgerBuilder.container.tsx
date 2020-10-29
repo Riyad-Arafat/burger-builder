@@ -1,9 +1,14 @@
-import React, {Component, Fragment} from 'react';
+import React, {useState, Fragment, useEffect} from 'react';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+
+
 import { BuilderControls } from './BuilderControls/BuilderControls';
 import { Burger } from './Burger'
-import { IngredienType } from '../../types/commomEnum';
+
 import {DisabledInfo, Ingredients } from '../../types/commonInterface';
-import {Modal} from '../../components/UI/Modal/Modal';
 import {OrderSummary} from '../OrderSummary/OrderSummary'
 import '../../assets/Burger/Burger.container.css'
 
@@ -15,97 +20,136 @@ const INGREDIENTS_PRICE:Ingredients = {
     Bacon : 5.2,
 }
 
-class BurgerBuilder extends Component {
+const BurgerBuilder = () => {
 
-    state = {
-        ingredients:{
-            Cheese :0 ,
-            Meat :0,
-            Salad :0 ,
-            Bacon :0 ,
-        },
-        isOrderOpen: false,
-        totalPrice: 0,
-        purchasable: false,
+    const ingredientsvalues = {
+        Cheese :0 ,
+        Meat :0,
+        Salad :0 ,
+        Bacon :0 ,
+    };
 
-    }
+    const [ingredients, setIngredints] = useState<Ingredients>(ingredientsvalues);
+    const [totalPrice, SetTotalPrice]   = useState(0);
+    const [purchasble, setPurchasable]  = useState(false);
+    const [open, setOpen]   = useState(false);
+    const [isLoaded, setIsLoaded]   = useState(false)
+    const [disabledInfo, setDisabledInfo]  =  useState<DisabledInfo>({})
+    
 
-    updatePurchase = (ingredients:Ingredients) => {
+    const updatePurchase = (ingredients:Ingredients) => {
         const sum = Object.keys(ingredients)
         .map(iKey => {
             return ingredients[iKey];
         }).reduce((sum, el) => {
             return sum + el
         },0)
-        this.setState({purchasable: sum > 0});
+        setPurchasable( sum > 0);
     }
 
-    addIngredients = (type: string, ingredients:Ingredients = this.state.ingredients) =>{
+    const addIngredients = (type: string) =>{
         const oldCount = ingredients[type];
         const updateCount = oldCount + 1;
-        const updateIngredient:Ingredients = {...this.state.ingredients};
-        updateIngredient[type]=updateCount;
-        const oldPrice = this.state.totalPrice;
+        const updateIngredient = ingredients;
+        updateIngredient[type] = updateCount;
+        const oldPrice = totalPrice;
         const newPrice = oldPrice + INGREDIENTS_PRICE[type];
-        this.setState({ingredients: updateIngredient, totalPrice: newPrice});
-        this.updatePurchase(updateIngredient);
+        setIngredints(updateIngredient);
+        SetTotalPrice(newPrice);
+        updatePurchase(updateIngredient);
+        disabled();
     }
 
-    removeIngredients = (type: string, ingredients:Ingredients = this.state.ingredients) =>{
+    const removeIngredients = (type: string) =>{
         const oldCount = ingredients[type];
         if(oldCount !== 0){
             const updateCount = oldCount - 1;
-            const updateIngredient:Ingredients = {...this.state.ingredients};
+            const updateIngredient:Ingredients = ingredients;
             updateIngredient[type]=updateCount;
-            const oldPrice = this.state.totalPrice;
+            const oldPrice = totalPrice;
             const newPrice = oldPrice - INGREDIENTS_PRICE[type];
-            this.setState({ingredients: updateIngredient, totalPrice: newPrice});
-            this.updatePurchase(updateIngredient);
+            setIngredints(updateIngredient);
+            SetTotalPrice(newPrice);
+            updatePurchase(updateIngredient);
+            disabled();
         }
         
     }
 
+    const handleOpen = () => {
+        setOpen(true);
+    }
 
-    render()
-    {
-        let ingr:Ingredients = {...this.state.ingredients};
-        const disabledInfo:DisabledInfo ={}
-        for(let key in ingr ){
-            disabledInfo[key] = ingr[key] <= 0
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+    const disabled = () =>{
+        const dis = disabledInfo;
+        for(let key in ingredients ){
+            dis[key] = ingredients[key] <= 0
         }
-        return(
-            <Fragment>
-                <Modal open={this.state.isOrderOpen}>
-                    <OrderSummary label="Order Summary" ingredients={this.state.ingredients} totalPrice={this.state.totalPrice} />
-                    <button 
-                    onClick={()=> this.setState({isOrderOpen: !this.state.isOrderOpen})}
-                    >Cancel</button>
-                </Modal>
+        setDisabledInfo(dis);
+    }
+
+    useEffect(()=>{
+        disabled();
+        setIsLoaded(true);
+    },[])
+
+    return(
+        <Fragment>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+            >
+                <DialogContent>
+                    <OrderSummary 
+                        label="Order Summary" 
+                        ingredients={ingredients} 
+                        totalPrice={totalPrice}
+                    />                
+                </DialogContent>
+                <DialogActions>
+                    <Button 
+                        onClick={handleClose}
+                        color="primary"
+                        >
+                        Cancel
+                    </Button>
+                    <Button 
+                        onClick={handleClose}
+                        color="primary"
+                        >
+                        Continue
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            {isLoaded ? 
                 <div className="Builder-Conatiner">
                     <Burger
-                        ingredients={this.state.ingredients} 
+                        ingredients={ingredients} 
                     />
                     <div className="Contorls-Container">
                         <br/>
-                        <div><b>{this.state.totalPrice.toFixed(2)}$</b></div>
+                        <div><b>{totalPrice.toFixed(2)}$</b></div>
                         <BuilderControls 
-                        ingredientsAdded={this.addIngredients}
-                        ingredientsRemoved={this.removeIngredients}
+                        ingredientsAdded={addIngredients}
+                        ingredientsRemoved={removeIngredients}
                         disabled={disabledInfo}
                         ></BuilderControls>
 
-                        <button disabled={!this.state.purchasable}
-                        onClick={()=> this.setState({isOrderOpen: !this.state.isOrderOpen})}
+                        <button disabled={!purchasble}
+                        onClick={handleOpen}
                         >OREDR NOW!</button>
                     </div>
-                    
-                    
-
                 </div>
-                
-            </Fragment>
-        )    
-    }
+            : null}
+            
+            
+        </Fragment>
+    )    
+
 }
 
 export default BurgerBuilder;

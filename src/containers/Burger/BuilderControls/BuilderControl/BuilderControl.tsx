@@ -5,10 +5,10 @@ interface BuilderControlProps {
     label: string,
     add: () => void,
     remove: () => void,
-    disabled?: boolean ,
+    disabled: boolean ,
 }
 
-export const BuilderControl = ({label, add, remove, disabled}:BuilderControlProps) => {
+export const BuilderControl = React.memo(({label, add, remove, disabled}:BuilderControlProps) => {
 
     return (
         <Fragment>
@@ -18,4 +18,4 @@ export const BuilderControl = ({label, add, remove, disabled}:BuilderControlProp
         </Fragment>
 
     )
-}
+})

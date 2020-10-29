@@ -1,4 +1,4 @@
-import React , {Fragment} from 'react';
+import React , {Fragment, useEffect, useState} from 'react';
 import {IngredienType} from '../../../types/commomEnum';
 
 import '../../../assets/Burger/BurgerIngredient.css';
@@ -18,49 +18,51 @@ const classes = {
 interface burgerIngredientProps {
     type : String;
 }
-export class BurgerIngredient extends React.Component<burgerIngredientProps>  {
-    
-    render()
-    {
-        const type = this.props.type
-        let  ingredint: null | JSX.Element = (null);
-        const chose = (type:String) =>{
-            switch (type) {
-                case IngredienType.BreadBottom:
-                    ingredint = (<div className={classes.BreadBottom}></div>);
-                    break;
-                case IngredienType.BreadTop:
-                    ingredint = (
-                        <div className={classes.BreadTop}>
-                            <div className={classes.Seeds1}></div>
-                            <div className={classes.Seeds2}></div>
-                        </div>
-                    );
-                    break;
-                case IngredienType.Meat:
-                    ingredint = (<div className={classes.Meat}></div>);
-                    break;
-                case IngredienType.Cheese:
-                    ingredint = (<div className={classes.Cheese}></div>);
-                    break;
-                case IngredienType.Bacon:
-                    ingredint = (<div className={classes.Bacon}></div>);
-                    break;
-                case IngredienType.Salad:
-                    ingredint = (<div className={classes.Salad}></div>);
-                    break;
-                default:
-                    ingredint = (null)
-                    break;
-            }
-        }
-        chose(type);
-        return(    
-            <Fragment>
-                {ingredint}
-            </Fragment> 
-        )
-    
+export const BurgerIngredient = React.memo(({type}:burgerIngredientProps) =>  {
 
+    const ingredintType = type;
+    const [ingredint, setIngredint] = useState< null | JSX.Element>(null);
+
+
+    const getIngredint = (type:String) =>{
+        switch (type) {
+            case IngredienType.BreadBottom:
+                setIngredint(<div className={classes.BreadBottom}></div>);
+                break;
+            case IngredienType.BreadTop:
+                setIngredint(
+                    <div className={classes.BreadTop}>
+                        <div className={classes.Seeds1}></div>
+                        <div className={classes.Seeds2}></div>
+                    </div>
+                );
+                break;
+            case IngredienType.Meat:
+                setIngredint(<div className={classes.Meat}></div>);
+                break;
+            case IngredienType.Cheese:
+                setIngredint(<div className={classes.Cheese}></div>);
+                break;
+            case IngredienType.Bacon:
+                setIngredint(<div className={classes.Bacon}></div>);
+                break;
+            case IngredienType.Salad:
+                setIngredint(<div className={classes.Salad}></div>);
+                break;
+            default:
+                setIngredint(null)
+                break;
+        }
     }
-}
+
+
+    useEffect(()=>{
+        getIngredint(ingredintType)
+    },[ingredintType]);
+
+    return(    
+        <Fragment>
+            {ingredint}
+        </Fragment> 
+    )
+})

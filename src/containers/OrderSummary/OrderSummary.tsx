@@ -18,7 +18,9 @@ const TH_TD_STYLE:CSSProperties = {
     padding: "8px",
 }
 
-export const OrderSummary = ({label, ingredients, totalPrice}:ModalProps) =>{
+export const OrderSummary = React.memo(
+    ({label, ingredients, totalPrice}:ModalProps) =>{
+
     const Ingredients = Object.keys(ingredients)
     .map(iKey => { 
         return(
@@ -31,19 +33,22 @@ export const OrderSummary = ({label, ingredients, totalPrice}:ModalProps) =>{
     })
     return(
     <Fragment>
-        <h3>{label}</h3>
-        <table style={TABLE_STYLE}>
-            <tbody>
-                <tr style={TH_TD_STYLE}>
-                    <th>Ingredient</th>
-                    <th>Amount</th>
-                </tr>
-                {Ingredients}
-            </tbody>
-        </table>
-        <div>Total Price: <b>{totalPrice.toFixed(2)}$</b></div>
-        <br/>
+        <div style={{width:"450px"}}>
+            <h3>{label}</h3>
+            <table style={TABLE_STYLE}>
+                <tbody>
+                    <tr style={TH_TD_STYLE}>
+                        <th>Ingredient</th>
+                        <th>Amount</th>
+                    </tr>
+                    {Ingredients}
+                </tbody>
+            </table>
+            <div>Total Price: <b>{totalPrice.toFixed(2)}$</b></div>
+            <br/>
+        </div>
+        
     </Fragment>
     )   
 
-}
+});

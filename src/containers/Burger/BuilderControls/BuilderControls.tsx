@@ -15,7 +15,12 @@ interface BuilderControlsProps {
     disabled: DisabledInfo;
 }
 
-export const BuilderControls = ({ingredientsAdded, ingredientsRemoved, disabled}:BuilderControlsProps) =>{
+export const BuilderControls = React.memo(
+    ({
+        ingredientsAdded,
+        ingredientsRemoved,
+        disabled
+    }:BuilderControlsProps) =>{
 
     return(
         <div>
@@ -32,4 +37,4 @@ export const BuilderControls = ({ingredientsAdded, ingredientsRemoved, disabled}
 
         </div> 
     )
-}
+})

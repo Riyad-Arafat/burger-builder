@@ -5,10 +5,11 @@
 button{
   margin: 3px;
   padding: 13px;
+  border-radius: 31px;
   background-color: #071907ad;
   color: white;
   font-weight: bold;
-  border-radius: 31px;
+  cursor: pointer;
   border: none;
   outline: none;
 }
