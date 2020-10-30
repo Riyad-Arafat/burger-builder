@@ -1,4 +1,5 @@
 import React, {useState, Fragment, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -20,7 +21,7 @@ const INGREDIENTS_PRICE:Ingredients = {
     Bacon : 5.2,
 }
 
-const BurgerBuilder = () => {
+export const BurgerBuilder = () => {
 
     const ingredientsvalues = {
         Cheese :0 ,
@@ -121,7 +122,7 @@ const BurgerBuilder = () => {
                         onClick={handleClose}
                         color="primary"
                         >
-                        Continue
+                        <Link to="/checkout" >CheckOut</Link>
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -138,10 +139,15 @@ const BurgerBuilder = () => {
                         ingredientsRemoved={removeIngredients}
                         disabled={disabledInfo}
                         ></BuilderControls>
-
-                        <button disabled={!purchasble}
+                        <br/>
+                        <Button
+                        disabled={!purchasble}
                         onClick={handleOpen}
-                        >OREDR NOW!</button>
+                        color="primary" variant="contained" size="large"
+                        >
+                            OREDR NOW!
+                        </Button>
+                        
                     </div>
                 </div>
             : null}
@@ -151,5 +157,3 @@ const BurgerBuilder = () => {
     )    
 
 }
-
-export default BurgerBuilder;

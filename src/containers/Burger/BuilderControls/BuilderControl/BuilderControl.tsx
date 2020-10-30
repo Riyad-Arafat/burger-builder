@@ -1,4 +1,6 @@
 import React, {Fragment} from 'react';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 
 interface BuilderControlProps {
@@ -13,8 +15,11 @@ export const BuilderControl = React.memo(({label, add, remove, disabled}:Builder
     return (
         <Fragment>
             <div className="label">{label}</div>
-            <button onClick={remove} disabled={disabled}>Less</button>
-            <button onClick={add}>More</button>
+            <ButtonGroup color='primary' variant="contained" size="small" >
+                <Button onClick={remove} disabled={disabled} >Less</Button>
+                <Button onClick={add}>More</Button>
+            </ButtonGroup>
+
         </Fragment>
 
     )

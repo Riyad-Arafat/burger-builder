@@ -1,12 +1,13 @@
 .Burger-Container{
     display: flex;
-    width: 50%;
     margin: auto;
+    width: 50%;
+    height: 100%;
 }
 
 .Burger{
     width: 100%;
-    height: 100vh;
+    height: 100%;
     font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
@@ -16,7 +17,7 @@
 }
 
 @media (max-width: 670px){
-    .Burger{
-        height: 26vh;
+    .Burger-Container{
+        height: 50%;
     }
 }

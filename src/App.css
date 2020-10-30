@@ -2,23 +2,16 @@
   text-align: center;
 }
 
-button{
-  margin: 3px;
-  padding: 13px;
-  border-radius: 31px;
-  background-color: #071907ad;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  outline: none;
-}
-
-button:disabled{
-  background-color: #9e9e9e63;
-  color: #00000082;
+a{
+  color: unset;
+  text-decoration: none;
 }
 
 button:hover:not(:disabled) {
+  background: #55ce50d4;
+}
+
+
+.active{
   background: #55ce50d4;
 }
