@@ -1,9 +1,11 @@
-import React, {useState, Fragment, useEffect} from 'react';
+import React, {useState, Fragment, useEffect, useCallback} from 'react';
 import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import {createStyles, makeStyles, Theme} from '@material-ui/core';
+
 
 
 import { BuilderControls } from './BuilderControls/BuilderControls';
@@ -21,7 +23,21 @@ const INGREDIENTS_PRICE:Ingredients = {
     Bacon : 5.2,
 }
 
-export const BurgerBuilder = () => {
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      background: theme.palette.background.default,
+      color: theme.palette.text.primary
+    },
+    
+  }),
+);
+
+
+
+
+export const BurgerBuilder = React.memo(() => {
 
     const ingredientsvalues = {
         Cheese :0 ,
@@ -30,12 +46,14 @@ export const BurgerBuilder = () => {
         Bacon :0 ,
     };
 
+    const classes = useStyles();
     const [ingredients, setIngredints] = useState<Ingredients>(ingredientsvalues);
     const [totalPrice, SetTotalPrice]   = useState(0);
     const [purchasble, setPurchasable]  = useState(false);
-    const [open, setOpen]   = useState(false);
+    const [open, setOpen]= useState(false);
     const [isLoaded, setIsLoaded]   = useState(false)
     const [disabledInfo, setDisabledInfo]  =  useState<DisabledInfo>({})
+    const dialog = React.createRef();
     
 
     const updatePurchase = (ingredients:Ingredients) => {
@@ -78,31 +96,32 @@ export const BurgerBuilder = () => {
     }
 
     const handleOpen = () => {
-        setOpen(true);
+        setOpen(!open);
     }
 
-    const handleClose = () => {
-        setOpen(false)
-    }
-
-    const disabled = () =>{
+    const disabled = useCallback(() =>{
         const dis = disabledInfo;
         for(let key in ingredients ){
             dis[key] = ingredients[key] <= 0
         }
         setDisabledInfo(dis);
-    }
+    },[disabledInfo, ingredients])
+
+    useEffect(()=>{
+        console.log("[Builder Container]", ingredients)
+    })
 
     useEffect(()=>{
         disabled();
         setIsLoaded(true);
-    },[])
+    },[disabled])
 
     return(
         <Fragment>
             <Dialog
                 open={open}
-                onClose={handleClose}
+                onClose={handleOpen}
+                ref={dialog}
             >
                 <DialogContent>
                     <OrderSummary 
@@ -112,28 +131,28 @@ export const BurgerBuilder = () => {
                     />                
                 </DialogContent>
                 <DialogActions>
-                    <Button 
-                        onClick={handleClose}
-                        color="primary"
+                    <Button
+                        color="inherit"
+                        onClick={handleOpen}
                         >
                         Cancel
                     </Button>
                     <Button 
-                        onClick={handleClose}
-                        color="primary"
+                        onClick={handleOpen}
+                        color="inherit"
                         >
                         <Link to="/checkout" >CheckOut</Link>
                     </Button>
                 </DialogActions>
             </Dialog>
             {isLoaded ? 
-                <div className="Builder-Conatiner">
+                <div className={`Builder-Conatiner ${classes.root}`}>
                     <Burger
                         ingredients={ingredients} 
+                        totalPrice={totalPrice}
                     />
                     <div className="Contorls-Container">
                         <br/>
-                        <div><b>{totalPrice.toFixed(2)}$</b></div>
                         <BuilderControls 
                         ingredientsAdded={addIngredients}
                         ingredientsRemoved={removeIngredients}
@@ -156,4 +175,4 @@ export const BurgerBuilder = () => {
         </Fragment>
     )    
 
-}
+});

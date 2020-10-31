@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "jsx": "react",
+    "noEmit": true,
+    "baseUrl": "./",
+    "paths": {
+      "@dasstack/components": ["src/components"],
+      "@dasstack/components/*": ["src/components/*"],
+      "@dasstack/models": ["src/models"],
+      "@dasstack/models/*": ["src/models/*"],
+      "@dasstack/store": ["src/store"],
+      "@dasstack/store/*": ["src/store/*"],
+      "@dasstack/validator": ["src/validator"],
+      "@dasstack/validator/*": ["src/validator/*"]
+    }
+  }
+}

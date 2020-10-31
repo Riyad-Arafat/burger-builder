@@ -6,7 +6,7 @@
 .Contorls-Container{
     order:-1;
     min-width: 35%;
-    background-color: #94a3c7ad;
+    background-color: #797979ad;
 }
 
 .Contorls-Container .label{
@@ -14,7 +14,6 @@
     font-weight: bold;
     margin-top: 10px;
     font-family: serif;
-    color: #030728;
 }
 
 

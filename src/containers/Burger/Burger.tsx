@@ -1,27 +1,44 @@
-import React from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {BurgerIngredient} from './BurgerIngredient/BurgerIngredient';
 import {IngredienType} from '../../types/commomEnum';
 import '../../assets/Burger/Burger.css';
+import { Ingredients } from '../../types/commonInterface';
 
-export const Burger = (props: any) => {
-    const {ingredients} = props;
-    let transFormedIngtedints:JSX.Element[] | JSX.Element = Object.keys(ingredients)
-    .map(iKey =>{
-        return [...Array(ingredients[iKey])].map((_,i) => {
-            return <BurgerIngredient type={iKey} key={i+iKey}/>
-        })
-    }).reduce((arr, el) => {
-        return arr.concat(el);
-    },[]);
+interface BurgerProps {
+    ingredients:Ingredients,
+    totalPrice: number
+}
 
-    if(transFormedIngtedints.length === 0){
-        transFormedIngtedints = <p>Please Add ingredients</p>
-    }
+export const Burger = ({ingredients, totalPrice}: BurgerProps) => {
+    const [addedIngredints, setAddedIngredints] = useState< JSX.Element[] | JSX.Element>([]);
+
+    const addIngredients = useCallback(() => {
+        let newIngred = (Object.keys(ingredients)
+        .map(iKey =>{
+            return [...Array(ingredients[iKey])].map((_,i) => {
+                return <BurgerIngredient type={iKey} key={i+iKey}/>
+            })
+        }).reduce((arr, el) => {
+            return arr.concat(el);
+        },[]));
+        setAddedIngredints(newIngred);
+        if(newIngred.length === 0){
+            setAddedIngredints(<p>Plz Add Ingredints</p>)
+        }
+    },[ingredients])
+
+    useEffect(()=>{
+        console.log('[BURGER]')
+        addIngredients();
+    },[addIngredients, totalPrice])
+
     return(
         <div className="Burger-Container">
             <div className='Burger'>
+                <br/>
+                <span><b>{totalPrice.toFixed(2)}</b>$</span>
                 <BurgerIngredient type={IngredienType.BreadTop}/>
-                {transFormedIngtedints}
+                {addedIngredints}
                 <BurgerIngredient type={IngredienType.BreadBottom}/>
             </div>
         </div>
