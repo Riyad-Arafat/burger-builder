@@ -42,6 +42,7 @@ export const BurgerBuilder = React.memo(() => {
     const {totalPrice}   = useSelector((state:RootState) => state.ingr);
     const dispatch = useDispatch();
 
+    const state = useSelector((state:RootState)=> state)
     const [purchasble, setPurchasable]  = useState(false);
     const [open, setOpen]= useState(false);
     const [isLoaded, setIsLoaded]   = useState(false)
@@ -88,7 +89,7 @@ export const BurgerBuilder = React.memo(() => {
     },[setDisabledInfo])
 
     useEffect(()=>{
-        console.log(ingredients, totalPrice)
+
 
         disabled(ingredients)
         setIsLoaded(true);

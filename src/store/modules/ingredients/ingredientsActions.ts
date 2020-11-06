@@ -1,4 +1,4 @@
-import { ActionTypes } from 'store/actionTypes';
+import { IngreActionTypes } from 'store/actionTypes';
 import { INGREDIENTS_PRICE } from './ingredientsReducer';
 import { Ingredients } from "types/commonInterface"
 
@@ -11,7 +11,7 @@ export const setIngredient = (oprat:("add" | "remove") ,key: string, initial: In
   if(oprat === "add"){
     updateCount = oldCount + 1;
     ingredients[key] = updateCount;
-    console.log(key)
+
   }else{
     updateCount = oldCount - 1;
     ingredients[key] = updateCount;
@@ -19,8 +19,8 @@ export const setIngredient = (oprat:("add" | "remove") ,key: string, initial: In
 
   return (
     {
-      type: ActionTypes.ADD_INGREDIENT,
-      payload: ingredients
+      type: IngreActionTypes.ADD_INGREDIENT,
+      payload: {["ingredients"]:ingredients}
     }
   )
 };
@@ -37,7 +37,7 @@ export const updateTotalPrice = (oprat: ("add" | "remove") , initial: number, in
   }
   return (
     {
-      type: ActionTypes.UPDATE_TOTALPRICE,
+      type: IngreActionTypes.UPDATE_TOTALPRICE,
       payload: {["totalPrice"]: newPrice}
     }
   )

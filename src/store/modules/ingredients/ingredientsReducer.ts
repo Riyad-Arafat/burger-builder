@@ -1,3 +1,4 @@
+import { IngreActionTypes } from 'store/actionTypes';
 import { createReducer} from 'tools/Redux';
 import { Ingredients } from 'types/commonInterface';
 
@@ -22,4 +23,4 @@ export const initialAuthState:IngredintsReducerState = {
 };
 
 
-export const ingredientsReducer = createReducer<IngredintsReducerState>(initialAuthState);
+export const ingredientsReducer = createReducer<IngredintsReducerState>(initialAuthState, IngreActionTypes);
