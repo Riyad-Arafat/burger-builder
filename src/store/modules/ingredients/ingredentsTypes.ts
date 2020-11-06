@@ -1,5 +1,6 @@
-import { IngredienType } from "types/commomEnum";
+import { Ingredients } from "types/commonInterface";
 
-export interface IngredientsType{
-    state: IngredienType;
+export interface IngredintsReducerState {
+    ingredients: Ingredients,
+    totalPrice: number;
 }

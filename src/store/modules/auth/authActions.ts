@@ -1,19 +1,10 @@
-import {AuthActionTypes} from './actionTypes';
+import { ActionTypes } from 'store/actionTypes';
 import { AuthState } from './authTypes';
-
-
-// export const setAuth = (state:boolean) => {
-//     console.log("setAuth",state)
-//     return ({
-//         type: ActionTypes.AUTHENTICATE,
-//         auth: state
-//     })
-// }
 
 export const createAction = <K, V = any>(
     key: keyof K,
     value: V,
-    type: AuthActionTypes
+    type: ActionTypes
   ) => {
     return(
     {
@@ -27,5 +18,5 @@ export const setAuth = (payload: boolean) =>
   createAction<AuthState, boolean>(
     "authenticated",
     payload,
-    AuthActionTypes.AUTHENTICATE
+    ActionTypes.AUTHENTICATE
 );

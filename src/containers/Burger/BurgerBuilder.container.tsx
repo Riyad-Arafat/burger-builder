@@ -13,9 +13,7 @@ import {OrderSummary} from '../OrderSummary/OrderSummary'
 import '../../assets/Burger/Burger.container.css'
 import { useSelector, useDispatch } from 'react-redux';
 import {RootState} from 'store/store'
-import { setIngredient } from 'store/modules/ingredients/ingredientsActions';
-import { IngredientsType } from 'store/modules/ingredients/ingredentsTypes';
-
+import { setIngredient, updateTotalPrice } from 'store/modules/ingredients/ingredientsActions';
 
 const INGREDIENTS_PRICE:Ingredients = {
     Cheese : 2,
@@ -39,22 +37,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const BurgerBuilder = React.memo(() => {
 
-    const ingredientsvalues = {
-        Cheese :0 ,
-        Meat :0,
-        Salad :0 ,
-        Bacon :0 ,
-    };
-
     const classes = useStyles();
-    const [totalPrice, SetTotalPrice]   = useState(0);
+    const {ingredients} = useSelector((state:RootState) => state.ingr);
+    const {totalPrice}   = useSelector((state:RootState) => state.ingr);
+    const dispatch = useDispatch();
+
     const [purchasble, setPurchasable]  = useState(false);
     const [open, setOpen]= useState(false);
     const [isLoaded, setIsLoaded]   = useState(false)
     const [disabledInfo, setDisabledInfo]  =  useState<DisabledInfo>({})
-    const state = useSelector((state:RootState) => state);
-    const ingredients = useSelector((state:RootState) => state.ingredients);
-    const dispatch = useDispatch();
     
 
     const updatePurchase = () => {
@@ -68,32 +59,20 @@ export const BurgerBuilder = React.memo(() => {
     }
 
     const addIngredients = (type: string) =>{
-        const oldCount = ingredients[type];
-        const updateCount = oldCount + 1;
-        dispatch(setIngredient(type, + updateCount))
-        const updateIngredient = ingredients;
-        updateIngredient[type] = updateCount;
-        const oldPrice = totalPrice;
-        const newPrice = oldPrice + INGREDIENTS_PRICE[type];
-        SetTotalPrice(newPrice);
+        dispatch(setIngredient("add", type, ingredients));
         updatePurchase();
-        disabled(updateIngredient);
+        dispatch(updateTotalPrice("add",totalPrice, type));
+        disabled(ingredients);
     }
 
     const removeIngredients = (type: string) =>{
         const oldCount = ingredients[type];
         if(oldCount !== 0){
-            const updateCount = oldCount - 1;
-            dispatch(setIngredient(type, + updateCount))
-            const updateIngredient = ingredients;
-            updateIngredient[type] = updateCount;
-            const oldPrice = totalPrice;
-            const newPrice = oldPrice - INGREDIENTS_PRICE[type];
-            SetTotalPrice(newPrice);
+            dispatch(setIngredient("remove", type, ingredients));
+            dispatch(updateTotalPrice("remove",totalPrice, type))
             updatePurchase();
-            disabled(updateIngredient);
-        }
-        
+            disabled(ingredients);
+        }   
     }
 
     const handleOpen = () => {
@@ -109,6 +88,8 @@ export const BurgerBuilder = React.memo(() => {
     },[setDisabledInfo])
 
     useEffect(()=>{
+        console.log(ingredients, totalPrice)
+
         disabled(ingredients)
         setIsLoaded(true);
     },[])
