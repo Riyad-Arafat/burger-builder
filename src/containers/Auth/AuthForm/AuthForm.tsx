@@ -3,20 +3,22 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import { useStyles } from ".././Auth.Style";
+import { setAuth } from 'store/modules/auth/authActions';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from 'store/store';
 
 export const AuthForm = () => {
   const classes = useStyles();
+  const auth = useSelector((state: RootState) => state.auth.authenticated);
+  const dispatch = useDispatch();
+
 
 
   const onSubmit = () => {
     const token = localStorage.getItem("tkn");
     if(!token){
-      localStorage.setItem("tkn" , "True")
-      // setAuth(true)
-      setTimeout(() => {
-        window.location.reload(false);
-      }, 2000)
-        
+      localStorage.setItem("tkn" , "True");
+      dispatch(setAuth(true));
     }
   }
 

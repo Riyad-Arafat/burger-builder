@@ -10,8 +10,12 @@ const darkTheme: ThemeOptions = {
     primary:{
       main:'#DDD',
     },
+    secondary:{
+      main: "#DDD"
+    },
     text:{
-      primary: "#DDD"
+      primary: "#DDD333",
+      secondary: "#ff",
     },
     background: {
       paper: '#272D33',
@@ -24,6 +28,10 @@ const lightTheme: ThemeOptions = {
   palette: {
     primary:{
       main:'#071907ad',
+    },
+    text:{
+      primary: "#272D33",
+      secondary: "#fff"
     },
     background: {
       paper: '#071907ad',

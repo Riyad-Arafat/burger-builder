@@ -28,7 +28,6 @@ export const Burger = ({ingredients, totalPrice}: BurgerProps) => {
     },[ingredients])
 
     useEffect(()=>{
-        console.log('[BURGER]')
         addIngredients();
     },[addIngredients, totalPrice])
 

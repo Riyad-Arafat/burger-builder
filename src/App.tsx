@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {Button, MuiThemeProvider} from '@material-ui/core';
 import { createTheme, ThemeMode } from 'theme/theme';
 
@@ -6,6 +6,10 @@ import {GuestRoute} from "./guards/GuestRoute";
 import {AppRoutes} from './routes/AppRoutes';
 import {NavBar} from "./containers/NavBar/NavBar";
 import {AuthContainer} from './containers/Auth/Auth.Container';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from 'store/store';
+import {setAuth} from 'store/modules/auth/authActions'
 
 import './App.css';
 
@@ -30,6 +34,30 @@ const App = () => {
   const mode = isDark ? ThemeMode.DARK : ThemeMode.LIGHT;
   const theme = React.useMemo(() => createTheme(mode), [mode]);
 
+  const auth = useSelector((state: RootState) => state.auth.authenticated)
+  const dispatch = useDispatch();
+
+
+  // Check Authentication when Local Storge Changes & Reload The page
+  const checkAuthentication = (() =>{
+    const token = localStorage.getItem("tkn");
+    if(!token){
+      dispatch(setAuth(false));
+      window.location.reload(false);
+    }else{
+      dispatch(setAuth(true));
+    }
+  })
+
+  useEffect(()=>{
+    const token = localStorage.getItem("tkn");
+    if(token){
+      dispatch(setAuth(true));
+    }
+    window.onstorage = () => {
+      checkAuthentication()  
+    };
+  },[])
 
   return (
     <MuiThemeProvider theme={theme}>

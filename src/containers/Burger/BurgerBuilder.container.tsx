@@ -1,4 +1,4 @@
-import React, {useState, Fragment, useEffect, useCallback} from 'react';
+import React, {useState, Fragment, useEffect, useCallback,} from 'react';
 import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,14 +6,15 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import {createStyles, makeStyles, Theme} from '@material-ui/core';
 
-
-
 import { BuilderControls } from './BuilderControls/BuilderControls';
 import { Burger } from './Burger'
-
 import {DisabledInfo, Ingredients } from '../../types/commonInterface';
 import {OrderSummary} from '../OrderSummary/OrderSummary'
 import '../../assets/Burger/Burger.container.css'
+import { useSelector, useDispatch } from 'react-redux';
+import {RootState} from 'store/store'
+import { setIngredient } from 'store/modules/ingredients/ingredientsActions';
+import { IngredientsType } from 'store/modules/ingredients/ingredentsTypes';
 
 
 const INGREDIENTS_PRICE:Ingredients = {
@@ -30,12 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
       background: theme.palette.background.default,
       color: theme.palette.text.primary
     },
-    
+    dialog:{
+      color: theme.palette.text.secondary
+    }
   }),
 );
-
-
-
 
 export const BurgerBuilder = React.memo(() => {
 
@@ -47,16 +47,17 @@ export const BurgerBuilder = React.memo(() => {
     };
 
     const classes = useStyles();
-    const [ingredients, setIngredints] = useState<Ingredients>(ingredientsvalues);
     const [totalPrice, SetTotalPrice]   = useState(0);
     const [purchasble, setPurchasable]  = useState(false);
     const [open, setOpen]= useState(false);
     const [isLoaded, setIsLoaded]   = useState(false)
     const [disabledInfo, setDisabledInfo]  =  useState<DisabledInfo>({})
-    const dialog = React.createRef();
+    const state = useSelector((state:RootState) => state);
+    const ingredients = useSelector((state:RootState) => state.ingredients);
+    const dispatch = useDispatch();
     
 
-    const updatePurchase = (ingredients:Ingredients) => {
+    const updatePurchase = () => {
         const sum = Object.keys(ingredients)
         .map(iKey => {
             return ingredients[iKey];
@@ -69,28 +70,28 @@ export const BurgerBuilder = React.memo(() => {
     const addIngredients = (type: string) =>{
         const oldCount = ingredients[type];
         const updateCount = oldCount + 1;
+        dispatch(setIngredient(type, + updateCount))
         const updateIngredient = ingredients;
         updateIngredient[type] = updateCount;
         const oldPrice = totalPrice;
         const newPrice = oldPrice + INGREDIENTS_PRICE[type];
-        setIngredints(updateIngredient);
         SetTotalPrice(newPrice);
-        updatePurchase(updateIngredient);
-        disabled();
+        updatePurchase();
+        disabled(updateIngredient);
     }
 
     const removeIngredients = (type: string) =>{
         const oldCount = ingredients[type];
         if(oldCount !== 0){
             const updateCount = oldCount - 1;
-            const updateIngredient:Ingredients = ingredients;
-            updateIngredient[type]=updateCount;
+            dispatch(setIngredient(type, + updateCount))
+            const updateIngredient = ingredients;
+            updateIngredient[type] = updateCount;
             const oldPrice = totalPrice;
             const newPrice = oldPrice - INGREDIENTS_PRICE[type];
-            setIngredints(updateIngredient);
             SetTotalPrice(newPrice);
-            updatePurchase(updateIngredient);
-            disabled();
+            updatePurchase();
+            disabled(updateIngredient);
         }
         
     }
@@ -99,31 +100,26 @@ export const BurgerBuilder = React.memo(() => {
         setOpen(!open);
     }
 
-    const disabled = useCallback(() =>{
+    const disabled = useCallback((updateIngredient:Ingredients) =>{
         const dis = disabledInfo;
-        for(let key in ingredients ){
-            dis[key] = ingredients[key] <= 0
+        for(let key in updateIngredient ){
+            dis[key] = updateIngredient[key] <= 0 ;
         }
         setDisabledInfo(dis);
-    },[disabledInfo, ingredients])
+    },[setDisabledInfo])
 
     useEffect(()=>{
-        console.log("[Builder Container]", ingredients)
-    })
-
-    useEffect(()=>{
-        disabled();
+        disabled(ingredients)
         setIsLoaded(true);
-    },[disabled])
+    },[])
 
     return(
         <Fragment>
             <Dialog
                 open={open}
                 onClose={handleOpen}
-                ref={dialog}
             >
-                <DialogContent>
+                <DialogContent className={classes.dialog}>
                     <OrderSummary 
                         label="Order Summary" 
                         ingredients={ingredients} 
@@ -132,14 +128,14 @@ export const BurgerBuilder = React.memo(() => {
                 </DialogContent>
                 <DialogActions>
                     <Button
-                        color="inherit"
+                        color="secondary"
                         onClick={handleOpen}
                         >
                         Cancel
                     </Button>
                     <Button 
                         onClick={handleOpen}
-                        color="inherit"
+                        color="secondary"
                         >
                         <Link to="/checkout" >CheckOut</Link>
                     </Button>

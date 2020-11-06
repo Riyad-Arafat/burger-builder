@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback} from 'react';
-// import { useSelector } from 'react-redux'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,7 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 import {Link} from 'react-router-dom';
-// import { RootState } from 'store/store.types';
+import { useSelector} from 'react-redux';
+import { RootState } from 'store/store';
 
 
 
@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      background: theme.palette.background.paper
+      background: theme.palette.background.paper,
+      color: theme.palette.text.primary,
     },
     title: {
       flexGrow: 1,
@@ -24,20 +25,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const NavBar = React.memo(() => {
-  // const auth = useSelector((state: RootState) => console.log(state.auth))
-  const [isAuth, setIsAuth] = useState(false);
+  const auth = useSelector((state: RootState) => state.auth.authenticated)
   const classes = useStyles();
 
-  const checkAuthentication = useCallback(() =>{
-    const token = localStorage.getItem("tkn");
-    if(token){
-      setIsAuth(true)
-    }
-  },[setIsAuth])
-
-  useEffect(()=>{
-    checkAuthentication();
-  },[checkAuthentication])
 
   return (
     <AppBar position="sticky" className={classes.root}>
@@ -49,7 +39,7 @@ export const NavBar = React.memo(() => {
           <Link to="/">Create Burger</Link>
         </Button>
 
-        {isAuth ?
+        {auth ?
           <Button color="inherit"><Link to="/checkout" >CheckOut</Link></Button>:
           <Button color="inherit"><Link to="/login" >Login</Link></Button>
         }
