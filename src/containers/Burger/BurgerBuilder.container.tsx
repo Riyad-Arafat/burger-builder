@@ -10,17 +10,10 @@ import { BuilderControls } from './BuilderControls/BuilderControls';
 import { Burger } from './Burger'
 import {DisabledInfo, Ingredients } from '../../types/commonInterface';
 import {OrderSummary} from '../OrderSummary/OrderSummary'
-import '../../assets/Burger/Burger.container.css'
 import { useSelector, useDispatch } from 'react-redux';
 import {RootState} from 'store/store'
 import { setIngredient, updateTotalPrice } from 'store/modules/ingredients/ingredientsActions';
-
-const INGREDIENTS_PRICE:Ingredients = {
-    Cheese : 2,
-    Meat : 3.5,
-    Salad : 2.65,
-    Bacon : 5.2,
-}
+import '../../assets/Burger/Burger.container.css'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -30,7 +23,8 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary
     },
     dialog:{
-      color: theme.palette.text.secondary
+      color: theme.palette.text.secondary,
+
     }
   }),
 );
@@ -117,7 +111,7 @@ export const BurgerBuilder = React.memo(() => {
                     </Button>
                     <Button 
                         onClick={handleOpen}
-                        color="secondary"
+                        color="primary"
                         >
                         <Link to="/checkout" >CheckOut</Link>
                     </Button>

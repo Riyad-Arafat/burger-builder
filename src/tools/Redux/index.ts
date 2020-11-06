@@ -4,7 +4,7 @@ export const updateState = <T>(state: T, payload: Partial<T>) => {
     return(
       {
         ...state,
-        payload,
+        ...payload,
       }
     )
 };
