@@ -1,5 +1,4 @@
 import React from 'react';
-import * as Yup from "yup";
 import Button from '@material-ui/core/Button';
 
 
@@ -10,17 +9,9 @@ import { RootState } from 'store/store';
 import { Form, Formik } from 'formik';
 import { InputField } from 'components/ui/Fields';
 
+import { LoginParams, LoginSchema } from 'validator'
 
 
-interface LoginParams {
-  email: string;
-  password: string;
-}
-
-const LoginSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string().required("Password is required"),
-});
 
 
 export const AuthForm = () => {

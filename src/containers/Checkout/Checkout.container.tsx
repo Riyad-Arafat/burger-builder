@@ -2,17 +2,16 @@ import React, {CSSProperties, Fragment} from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core';
 
 import {Ingredients} from 'types/commonInterface';
-import { CehckoutForm } from './CheckoutForm/Form';
+import { CehckoutForm } from './CheckoutForm/CheckoutForm';
 
 
 
 const useStyles = makeStyles((theme:Theme) => 
     createStyles({
-        root: {
+        checkout: {
             background: theme.palette.background.default,
             color: theme.palette.text.primary,
             height: "100vh",
-            marginBlockStart: '-21px',
 
         },
     })
@@ -22,12 +21,15 @@ export const CheckoutContainer = () => {
     const classes = useStyles();
 
     return(
-        <Fragment>
-            <div className={classes.root}>
-                <h1>Order Now</h1>
+
+            <div className={classes.checkout}>
                 <CehckoutForm/>
+                <div><h1>Order Now</h1></div>
+                
+
+               
             </div>
-        </Fragment>
+  
         
     )
 }

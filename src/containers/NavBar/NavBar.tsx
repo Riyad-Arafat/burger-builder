@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
       background: theme.palette.background.paper,
-      color: theme.palette.text.primary,
+      color: theme.palette.primary.light,
     },
     title: {
       flexGrow: 1,
@@ -30,7 +30,7 @@ export const NavBar = React.memo(() => {
 
 
   return (
-    <AppBar position="sticky" className={classes.root}>
+    <AppBar position="relative" className={classes.root}>
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           Burger Builder Tool

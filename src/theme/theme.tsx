@@ -8,7 +8,7 @@ export enum ThemeMode {
 const darkTheme: ThemeOptions = {
   palette: {
     primary:{
-      main:'#DDD',
+      main:'#DDD333',
     },
     secondary:{
       main: "#DDD"
@@ -16,9 +16,18 @@ const darkTheme: ThemeOptions = {
     text:{
       primary: "#DDD333",
     },
-    background: {
-      paper: '#272D33',
-      default: '#272D33'
+    type: "dark"
+  },
+  overrides: {
+    MuiButtonGroup:{
+      root:{
+        borderRadius:"15px",
+      },
+    },
+    MuiButton: {
+      root: {
+        borderRadius:"15px",
+      },
     },
   },
 };
@@ -27,12 +36,26 @@ const lightTheme: ThemeOptions = {
   palette: {
     primary:{
       main:'#071907ad',
+      light:'#DDD'
     },
     text:{
-      primary: "#272D33",
+      primary: "#071907ad",
     },
     background: {
       paper: '#071907ad',
+    },
+    type:"light"
+  },
+  overrides: {
+    MuiButtonGroup:{
+      root:{
+        borderRadius:"15px",
+      },
+    },
+    MuiButton: {
+      root: {
+        borderRadius:"15px",
+      },
     },
   },
 };

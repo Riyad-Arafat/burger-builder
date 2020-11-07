@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import {Button, MuiThemeProvider} from '@material-ui/core';
 import { createTheme, ThemeMode } from 'theme/theme';
 
@@ -10,6 +10,8 @@ import {AuthContainer} from './containers/Auth/Auth.Container';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'store/store';
 import {setAuth} from 'store/modules/auth/authActions'
+
+import {WbSunny, Brightness3} from '@material-ui/icons';
 
 import './App.css';
 
@@ -61,16 +63,19 @@ const App = () => {
 
   return (
     <MuiThemeProvider theme={theme}>
-      <div className="App">
+      <Fragment>
         <NavBar/>
-        <Button color='primary' variant="contained" size="small"
-        onClick={changeThemeMode}
-        style={{position: 'fixed',right: 0, top: '100px'}}>
-          {isDark ? "light Mode" : "Dark Mode"}
+        <Button color='primary'  size="small"
+          onClick={changeThemeMode}
+          style={{position: 'fixed',right: 0, top: '100px'}}>
+            {isDark ? <WbSunny/> : <Brightness3/>}
         </Button>
-        <GuestRoute path='/login' component={AuthContainer}/>
-        <AppRoutes/> 
-      </div>
+        <div className='content'>
+          <GuestRoute path='/login' component={AuthContainer}/>
+          <AppRoutes/> 
+        </div>
+        
+      </Fragment>
     </MuiThemeProvider>
     
   );
