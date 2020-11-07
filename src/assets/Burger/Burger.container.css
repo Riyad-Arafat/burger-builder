@@ -20,6 +20,7 @@
 @media (max-width: 670px){
     .Builder-Conatiner{
         display: block;
+        height: 121vh;
     }
     
     .Contorls-Container{

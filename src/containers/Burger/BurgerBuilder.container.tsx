@@ -8,7 +8,7 @@ import {createStyles, makeStyles, Theme} from '@material-ui/core';
 
 import { BuilderControls } from './BuilderControls/BuilderControls';
 import { Burger } from './Burger'
-import {DisabledInfo, Ingredients } from '../../types/commonInterface';
+import {DisabledInfo, Ingredients } from 'types/commonInterface';
 import {OrderSummary} from '../OrderSummary/OrderSummary'
 import { useSelector, useDispatch } from 'react-redux';
 import {RootState} from 'store/store'

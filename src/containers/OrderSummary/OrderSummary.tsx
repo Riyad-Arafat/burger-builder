@@ -1,5 +1,5 @@
 import React, {CSSProperties, Fragment} from 'react';
-import {Ingredients} from '../../types/commonInterface';
+import {Ingredients} from 'types/commonInterface';
 
 interface ModalProps{
     label: string,
