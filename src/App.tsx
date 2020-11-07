@@ -13,7 +13,7 @@ import {setAuth} from 'store/modules/auth/authActions'
 
 import {WbSunny, Brightness3} from '@material-ui/icons';
 
-import './App.css';
+import 'assets/App.css';
 
 const App = () => {
 
@@ -65,7 +65,10 @@ const App = () => {
     <MuiThemeProvider theme={theme}>
       <Fragment>
         <NavBar/>
-        <Button color='primary'  size="small"
+        <Button
+          variant="outlined"
+          color='primary'
+          size="small"
           onClick={changeThemeMode}
           style={{position: 'fixed',right: 0, top: '100px'}}>
             {isDark ? <WbSunny/> : <Brightness3/>}

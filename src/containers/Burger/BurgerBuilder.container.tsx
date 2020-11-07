@@ -9,11 +9,11 @@ import {createStyles, makeStyles, Theme} from '@material-ui/core';
 import { BuilderControls } from './BuilderControls/BuilderControls';
 import { Burger } from './Burger'
 import {DisabledInfo, Ingredients } from 'types/commonInterface';
-import {OrderSummary} from '../OrderSummary/OrderSummary'
+import {OrderSummary} from './OrderSummary/OrderSummary';
 import { useSelector, useDispatch } from 'react-redux';
 import {RootState} from 'store/store'
 import { setIngredient, updateTotalPrice } from 'store/modules/ingredients/ingredientsActions';
-import '../../assets/Burger/Burger.container.css'
+import 'assets/Burger/Burger.container.css'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -23,8 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary
     },
     dialog:{
-      color: theme.palette.text.secondary,
-
+      color: theme.palette.text.hint,
     }
   }),
 );
@@ -35,8 +34,6 @@ export const BurgerBuilder = React.memo(() => {
     const {ingredients} = useSelector((state:RootState) => state.ingr);
     const {totalPrice}   = useSelector((state:RootState) => state.ingr);
     const dispatch = useDispatch();
-
-    const state = useSelector((state:RootState)=> state)
     const [purchasble, setPurchasable]  = useState(false);
     const [open, setOpen]= useState(false);
     const [isLoaded, setIsLoaded]   = useState(false)
@@ -80,14 +77,12 @@ export const BurgerBuilder = React.memo(() => {
             dis[key] = updateIngredient[key] <= 0 ;
         }
         setDisabledInfo(dis);
-    },[setDisabledInfo])
+    },[setDisabledInfo,disabledInfo])
 
     useEffect(()=>{
-
-
         disabled(ingredients)
         setIsLoaded(true);
-    },[])
+    },[disabled,setIsLoaded])
 
     return(
         <Fragment>
@@ -105,6 +100,7 @@ export const BurgerBuilder = React.memo(() => {
                 <DialogActions>
                     <Button
                         color="secondary"
+                        variant="outlined"
                         onClick={handleOpen}
                         >
                         Cancel
@@ -112,6 +108,7 @@ export const BurgerBuilder = React.memo(() => {
                     <Button 
                         onClick={handleOpen}
                         color="primary"
+                        variant="outlined"
                         >
                         <Link to="/checkout" >CheckOut</Link>
                     </Button>
@@ -136,14 +133,13 @@ export const BurgerBuilder = React.memo(() => {
                         onClick={handleOpen}
                         color="primary" variant="contained" size="large"
                         >
-                            OREDR NOW!
+                           OREDR NOW!
                         </Button>
                         
                     </div>
                 </div>
             : null}
-            
-            
+                        
         </Fragment>
     )    
 

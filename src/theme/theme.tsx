@@ -11,10 +11,12 @@ const darkTheme: ThemeOptions = {
       main:'#DDD333',
     },
     secondary:{
-      main: "#DDD"
+      main: '#DDD',
     },
     text:{
       primary: "#DDD333",
+      secondary: "#DDD",
+      hint: "#DDD" 
     },
     type: "dark"
   },
@@ -35,14 +37,19 @@ const darkTheme: ThemeOptions = {
 const lightTheme: ThemeOptions = {
   palette: {
     primary:{
-      main:'#071907ad',
-      light:'#DDD'
+      main: '#071907ad',
+    },
+    secondary:{
+      main: '#DDD',
     },
     text:{
       primary: "#071907ad",
+      secondary: "#071907ad",
+      hint:"#DDD"
+
     },
     background: {
-      paper: '#071907ad',
+      paper: '#3a403b',
     },
     type:"light"
   },

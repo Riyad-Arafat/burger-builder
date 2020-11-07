@@ -35,7 +35,7 @@ export const InputField = ({
           endAdornment: isPassword ? (
             <InputAdornment position="end">
               <IconButton
-                size="small"
+                size="medium"
                 onClick={() => setShowPassword(!showPassword)}
                 edge="end"
               >

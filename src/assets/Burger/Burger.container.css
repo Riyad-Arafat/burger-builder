@@ -1,6 +1,6 @@
 .Builder-Conatiner{
     display: flex;
-    height: 90vh;
+    height: 91.4vh;
 }
 
 .Contorls-Container{
@@ -20,7 +20,7 @@
 @media (max-width: 670px){
     .Builder-Conatiner{
         display: block;
-        height: 121vh;
+        height: 129vh;
     }
     
     .Contorls-Container{

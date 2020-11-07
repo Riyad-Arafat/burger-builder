@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {DisabledInfo} from '../../../types/commonInterface';
 import {BuilderControl} from './BuilderControl/BuilderControl'
 
