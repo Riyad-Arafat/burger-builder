@@ -15,7 +15,7 @@ import {WbSunny, Brightness3} from '@material-ui/icons';
 
 import 'assets/App.css';
 
-const App = () => {
+export const App = () => {
 
   const themeMode = localStorage.getItem('themeMode');
   const [isDark, setDark] = useState(themeMode === 'dark');
@@ -84,4 +84,3 @@ const App = () => {
   );
 }
 
-export default App;
